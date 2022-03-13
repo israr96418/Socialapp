@@ -13,11 +13,12 @@ router = APIRouter(
 @router.post("/", status_code=status.HTTP_200_OK)
 def login(login: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
     user = db.query(models.User).filter(models.User.email == login.username).first()
+    print("user", user)
 
     if not user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials(email)")
 
-    if not utils.password_verificaion(login.password, user.password):
+    if not utils.password_verification(login.password, user.password):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid Credentials(password)")
 
     access_token = oauth.create_acces_token(data={"user_id": user.id})

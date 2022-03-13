@@ -22,10 +22,10 @@ class Post(Base):
 class User(Base):
     __tablename__ = "user"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String(32), primary_key=True)
     name = Column(String(30), nullable=True)
     password = Column(String(3000), nullable=False)
-    email = Column(String(30), nullable=False)
+    email = Column(String(30), nullable=False, unique=True)
     is_active = Column(Boolean, nullable=True)
 
 

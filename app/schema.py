@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from pydantic.types import conint
 
 
@@ -9,7 +9,19 @@ class singup(BaseModel):
     id: int
     name: str
     password: str
-    email: EmailStr
+    email: str
+    is_active: Optional[str] = True
+
+
+    class Config:
+        orm_mode = True
+
+
+class outschema(BaseModel):
+    id: int
+    name: str
+    email: str
+    is_active: Optional[str] = True
 
     class Config:
         orm_mode = True
@@ -98,19 +110,50 @@ class out_schema_for_create_post(BaseModel):
     class Config:
         orm_mode = True
 
+
 class updatePost(BaseModel):
-    name:str
+    name: str
     description: str
-    phone:int
 
     class Config:
         orm_mode = True
 
+
 class outschema_for_updatedPost(BaseModel):
-    id:int
-    name:str
-    description:str
-    phone:int
+    id: int
+    name: str
+    description: str
+
+    class Config:
+        orm_mode = True
+
+
+class for_password_changing(BaseModel):
+    old_password: str
+    new_password: str
+
+    class Config:
+        orm_mode = True
+
+
+class PasswordChangeInSchema(BaseModel):
+    old_password: str
+    new_password: str
+
+    class Config:
+        orm_mode = True
+
+
+class outschema_password_changing(BaseModel):
+    password: str
+
+    class Config:
+        orm_mode = True
+
+
+class ForgetPassword(BaseModel):
+    email: str
+    new_password: str
 
     class Config:
         orm_mode = True

@@ -27,7 +27,7 @@ def Post_Create(post: schema.Post, db: Session = Depends(database.get_db),
 @router.get("/", response_model=List[schema.post_vote])
 # @router.get("/")
 def get_all_post(get_curretn_user: int = Depends(oauth.get_current_user), db: Session = Depends(database.get_db)
-                 , limit: int = 3, skip: int = 0, search: Optional[str] = ""):
+                 , limit: int = 10, skip: int = 0, search: Optional[str] = ""):
     # this query return only those post which is created by that owner that we logged in
     # get_post = db.query(models.Post).filter(models.Post.owner_id== get_curretn_user.id).all()
 
